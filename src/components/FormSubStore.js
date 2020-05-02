@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
 
 class FormSubStore extends Component {
     constructor(props) {
@@ -24,19 +25,25 @@ class FormSubStore extends Component {
 
     handleSubmit = (e) =>{
         e.preventDefault()
-        const users = localStorage.getItem("users");
-        let userArray = [];
-        if(users){
-            userArray = JSON.parse(users);
-        }
-        for(let i = 0; i < userArray.length; i++){
-            if(userArray[i].key === this.props.match.params.key){
-                userArray[i].subStore.push(this.state)
+        const {key, name, email, number, address} = this.state
+        if(!name && !key && !email && !number && !address){
+            alert("plese fill input fields")
+        }else{
+            const users = localStorage.getItem("users");
+            let userArray = [];
+            if(users){
+                userArray = JSON.parse(users);
             }
-        }
-        localStorage.setItem("users", JSON.stringify(userArray));
-        window.location = `/store/${this.props.match.params.key}`;
+            for(let i = 0; i < userArray.length; i++){
+                if(userArray[i].key === this.props.match.params.key){
+                    userArray[i].subStore.push(this.state)
+                }
+            }
+            localStorage.setItem("users", JSON.stringify(userArray));
+            window.location = `/store/${this.props.match.params.key}`;
 
+        }
+        
     }
     render() {
         const users = localStorage.getItem("users");

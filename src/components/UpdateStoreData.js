@@ -41,11 +41,21 @@ class UpdateStoreData extends Component {
         }
         
         localStorage.clear()
-        let filterArray = userArray.filter(item=> item.key != this.props.match.params.key )
+        // let filterArray = userArray.filter(item=> item.key != this.props.match.params.key )
 
-        const newArr = [...filterArray, this.state]
+        userArray.forEach(item=> {
+            if(item.key === this.props.match.params.key){
+                item.name = this.state.name;
+                item.email = this.state.email
+                item.address = this.state.address
+                item.number = this.state.number
+            }
+        })
+        console.log(userArray)
+
+        // const newArr = [...filterArray, this.state]
         
-        localStorage.setItem("users", JSON.stringify(newArr));
+        localStorage.setItem("users", JSON.stringify(userArray));
         window.location = "/";
     }
 

@@ -26,19 +26,25 @@ class FormStore extends Component {
 
     handleSubmit = (e) =>{
         e.preventDefault()
-        const userData = this.state;
-        // get existing users from localstorage
+        const { key, name, email, number, address } = this.state
+        if(key && name && email && number){
+            const userData = this.state;
+            // get existing users from localstorage
 
-        const userString = localStorage.getItem("users");
-        let userArray = [];
+            const userString = localStorage.getItem("users");
+            let userArray = [];
 
-        if(userString){
-            // if user exists, then parse it from string to an array
-            userArray = JSON.parse(userString)
+            if(userString){
+                // if user exists, then parse it from string to an array
+                userArray = JSON.parse(userString)
+            }
+            userArray.push(userData)
+            localStorage.setItem("users", JSON.stringify(userArray));
+            window.location = "/";
+        }else{
+            alert("first Fill the input filed")
         }
-        userArray.push(userData)
-        localStorage.setItem("users", JSON.stringify(userArray));
-        window.location = "/";
+        
     }
     render() {
         return (
