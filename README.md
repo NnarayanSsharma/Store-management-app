@@ -1,4 +1,4 @@
-Demo of this project [Demo](https://dreamy-curran-682ab8.netlify.app/) 
+Demo of this project [Demo](https://elated-allen-ef3726.netlify.app/store) 
 
 
 
