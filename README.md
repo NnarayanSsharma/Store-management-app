@@ -1,4 +1,4 @@
-Demo of this project [Demo](https://elated-allen-ef3726.netlify.app/store) 
+Demo of this project [Demo](https://mystifying-meninsky-d9c349.netlify.app/) 
 
 
 
