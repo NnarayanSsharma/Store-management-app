@@ -30,6 +30,7 @@ export class EditStoreData extends Component {
                         <p>key: {this.props.userArray.key?this.props.userArray.key:null}</p>
                         <p>Name: {this.props.userArray.name?this.props.userArray.name:null}</p>
                         <p>Email: {this.props.userArray.email?this.props.userArray.email:null}</p>
+                        <p>Address: {this.props.userArray.address?this.props.userArray.address:null}</p>
                         <div className="button-link">
                             <Link><button onClick={()=> this.props.handleDelete(this.props.userArray.key)}>Delete</button></Link>
                         

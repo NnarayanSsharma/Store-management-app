@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export class ShowStore extends Component {
     constructor(props) {
         super(props)
-        
+        console.log(this.props)
         this.state = {
             isDelete: false
         }
@@ -54,6 +54,7 @@ export class ShowStore extends Component {
                 <p>Address: {data[0].address}</p>
                 <p>Substore: {data[0].subStore.length}</p>
                 <div className="create-subStore-link"><Link to={`/store/${data[0].key}/formSubStore`} >Create Substore</Link></div>
+                <div className="create-subStore-link"><Link to={`/store/${data[0].key}/showSubStore`} >Show Substore</Link></div>
                 <h1>Substore Details</h1>
                 <div className="box">
                 {

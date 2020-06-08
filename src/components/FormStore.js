@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+import { withGoogleMap, withScriptjs, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 
 class FormStore extends Component {
     constructor(props) {
@@ -12,7 +14,8 @@ class FormStore extends Component {
             number: '',
             address: '',
             subStore: [],
-            numberOfSubStore: 0
+            numberOfSubStore: 0,
+            location: { lat: null, lng: null }
         }
     }
     
@@ -24,10 +27,23 @@ class FormStore extends Component {
         })
     }
 
-    handleSubmit = (e) =>{
+    handleSubmit = async (e) =>{
         e.preventDefault()
-        const { key, name, email, number, address } = this.state
-        if(key && name && email && number){
+        const { key, name, email, number, address, location } = this.state
+
+        console.log(address)
+        const results = await geocodeByAddress(address);
+        const latLng = await getLatLng(results[0]);
+
+        this.setState({
+            location: {
+                lat: latLng.lat,
+                lng: latLng.lng
+            }
+        })
+
+
+        if(key && name && email && number && address){
             const userData = this.state;
             // get existing users from localstorage
 

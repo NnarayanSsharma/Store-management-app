@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+
 
 export class UpdateSubStoreData extends Component {
     
@@ -16,6 +18,7 @@ export class UpdateSubStoreData extends Component {
         let number = '';
         let address = '';
         let subKey = this.props.match.params.subStoreKey;
+        let location = {}
         userArray.forEach(item=>{
             for(let i = 0; i < item.subStore.length; i++){
                 if(item.subStore[i].key === subKey){
@@ -23,6 +26,7 @@ export class UpdateSubStoreData extends Component {
                     email = item.subStore[i].email;
                     number = item.subStore[i].number;
                     address = item.subStore[i].address;
+                    location = item.subStore[i].location
                 }
                 
             }
@@ -34,6 +38,7 @@ export class UpdateSubStoreData extends Component {
             email: email,
             number: number,
             address: address,
+            location: location
         }
     }
 
@@ -44,13 +49,26 @@ export class UpdateSubStoreData extends Component {
         })
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault()
         let users = localStorage.getItem("users");
         let userArray = [];
         if(users){
             userArray = JSON.parse(users);
         }
+
+        const results = await geocodeByAddress(this.state.address);
+        const latLng = await getLatLng(results[0]);
+        console.log(results)
+        console.log(latLng)
+
+        this.setState({
+            location: {
+                lat: latLng.lat,
+                lng: latLng.lng
+            }
+        })
+
         let subKey = this.props.match.params.subStoreKey;
         userArray.forEach(item=>{
             for(let i = 0; i < item.subStore.length; i++){

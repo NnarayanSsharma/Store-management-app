@@ -36,6 +36,7 @@ class Home extends Component {
             <div className="home">
                 <h1>Welcome to Stores catalog and orders management App</h1>
                 <div className="create-store-link"><Link to="/store">Create Store</Link></div>
+                <div className="create-store-link"><Link to="/googleMap">View Stores in Map</Link></div>
                 <div className="box">
                 {
                     this.state.userArray.length?

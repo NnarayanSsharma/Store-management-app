@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+import { withGoogleMap, withScriptjs, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 import {Link} from 'react-router-dom'
 
 class FormSubStore extends Component {
@@ -11,6 +13,7 @@ class FormSubStore extends Component {
             email: '',
             number: '',
             address: '',
+            location: {lat: null, lng: null}
 
         }
     }
@@ -23,12 +26,25 @@ class FormSubStore extends Component {
         })
     }
 
-    handleSubmit = (e) =>{
+    handleSubmit = async (e) =>{
         e.preventDefault()
         const {key, name, email, number, address} = this.state
+
+
         if(!name && !key && !email && !number && !address){
             alert("plese fill input fields")
         }else{
+            console.log(address)
+            const results = await geocodeByAddress(address);
+            const latLng = await getLatLng(results[0]);
+
+            this.setState({
+                location: {
+                    lat: latLng.lat,
+                    lng: latLng.lng
+                }
+            })
+
             const users = localStorage.getItem("users");
             let userArray = [];
             if(users){

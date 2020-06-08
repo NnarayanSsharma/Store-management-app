@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 
 class UpdateStoreData extends Component {
     constructor(props) {
@@ -19,7 +20,8 @@ class UpdateStoreData extends Component {
             number: data[0]?data[0].number:'',
             address: data[0]?data[0].address:'',
             numberOfSubStore: data[0]?data[0].subStore.length:0,
-            subStore: []
+            subStore: [],
+            location: {lat: data[0]?data[0].location.lat:null, lng: data[0]?data[0].location.lng: null}
 
         }
     }
@@ -31,7 +33,7 @@ class UpdateStoreData extends Component {
         })
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault()
 
         const users = localStorage.getItem("users");
@@ -43,12 +45,27 @@ class UpdateStoreData extends Component {
         localStorage.clear()
         // let filterArray = userArray.filter(item=> item.key != this.props.match.params.key )
 
-        userArray.forEach(item=> {
+        const results = await geocodeByAddress(this.state.address);
+        const latLng = await getLatLng(results[0]);
+        console.log(results)
+        console.log(latLng)
+
+        this.setState({
+            location: {
+                lat: latLng.lat,
+                lng: latLng.lng
+            }
+        })
+
+        userArray.forEach((item)=> {
+            console.log(item.address)
+            
             if(item.key === this.props.match.params.key){
                 item.name = this.state.name;
                 item.email = this.state.email
                 item.address = this.state.address
                 item.number = this.state.number
+                item.location = this.state.location
             }
         })
         console.log(userArray)
