@@ -120,7 +120,7 @@ function ShowSubStore(props) {
 
             <div style={{ width: "100%", height: "66vh", paddingBottom: "1rem"  }}>
                 <WrappedMap
-                    googleMapURL= "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBSTjFMTei2xgFZhbyeQPo7UXXBeK3r35s"
+                    googleMapURL= "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=YOUR-KEY"
                     loadingElement={<div style={{ height: `100%` }} />}
                     containerElement={<div style={{ height: `100%` }} />}
                     mapElement={<div style={{ height: `100%` }} />}
